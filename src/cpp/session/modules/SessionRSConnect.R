@@ -558,6 +558,13 @@
    eval(cmd, envir = globalenv())
 })
 
+# Connect a Posit Connect Cloud account using the device auth flow provided
+# by rsconnect::connectCloudUser(). This opens a browser for authentication,
+# polls for completion, and registers the account.
+.rs.addJsonRpcHandler("connect_cloud_user", function() {
+   rsconnect::connectCloudUser()
+})
+
 
 .rs.addFunction("getRmdPublishDetails", function(target, encoding) {
 

@@ -120,6 +120,7 @@ public class RSConnectAccountWizard
                            NewRSConnectAccountResult>> pages = new ArrayList<>();
 
       pages.add(new NewRSConnectCloudPage());
+      pages.add(new NewRSConnectCloudConnectPage());
       if (isConnectEnabled)
          pages.add(new NewRSConnectLocalPage());
       return pages;

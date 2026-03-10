@@ -38,17 +38,30 @@ import com.google.gwt.user.client.ui.Composite;
 
 public class RSConnectAccountList extends Composite implements CanSetControlId
 {
-   public RSConnectAccountList(RSConnectServerOperations server, 
+   public RSConnectAccountList(RSConnectServerOperations server,
          GlobalDisplay display,
          boolean refreshImmediately,
          boolean showShinyAppsAccounts,
          boolean showConnectAccounts,
          String ariaLabel)
    {
+      this(server, display, refreshImmediately, showShinyAppsAccounts,
+           showConnectAccounts, true, ariaLabel);
+   }
+
+   public RSConnectAccountList(RSConnectServerOperations server,
+         GlobalDisplay display,
+         boolean refreshImmediately,
+         boolean showShinyAppsAccounts,
+         boolean showConnectAccounts,
+         boolean showConnectCloudAccounts,
+         String ariaLabel)
+   {
       server_ = server;
       display_ = display;
       showShinyAppsAccounts_ = showShinyAppsAccounts;
       showConnectAccounts_ = showConnectAccounts;
+      showConnectCloudAccounts_ = showConnectCloudAccounts;
       accountList_ = new WidgetListBox<>();
       accountList_.setEmptyText(constants_.noAccountsConnected());
       if (refreshImmediately)
@@ -94,7 +107,14 @@ public class RSConnectAccountList extends Composite implements CanSetControlId
             accounts_.add(account);
             accountList_.addItem(new RSConnectAccountEntry(account));
          }
-         else if (!account.isShinyAppsAccount() && showConnectAccounts_)
+         else if (account.isConnectCloudAccount() && showConnectCloudAccounts_)
+         {
+            accounts_.add(account);
+            accountList_.addItem(new RSConnectAccountEntry(account));
+         }
+         else if (!account.isShinyAppsAccount() &&
+                  !account.isConnectCloudAccount() &&
+                  showConnectAccounts_)
          {
             accounts_.add(account);
             accountList_.addItem(new RSConnectAccountEntry(account));
@@ -183,6 +203,7 @@ public class RSConnectAccountList extends Composite implements CanSetControlId
    
    private boolean showShinyAppsAccounts_;
    private boolean showConnectAccounts_;
+   private boolean showConnectCloudAccounts_;
    
    private ArrayList<RSConnectAccount> accounts_ = new ArrayList<>();
    private Operation onRefreshCompleted_ = null;

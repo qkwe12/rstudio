@@ -292,6 +292,10 @@ public class RSAccountConnector implements EnableRStudioConnectUIEvent.Handler
       {
          connectCloudAccount(result, indicator, onConnected);
       }
+      else if (result.getAccountType() == AccountType.RSConnectCloudConnectAccount)
+      {
+         connectCloudConnectAccount(result, indicator, onConnected);
+      }
       else
       {
          connectLocalAccount(result, indicator, onConnected);
@@ -327,6 +331,31 @@ public class RSAccountConnector implements EnableRStudioConnectUIEvent.Handler
          {
             display_.showErrorMessage(constants_.errorConnectingAccount(),
                   constants_.errorAccountMessage(cmd));
+            onConnected.execute(AccountConnectResult.Failed);
+         }
+      });
+   }
+
+   private void connectCloudConnectAccount(
+         final NewRSConnectAccountResult result,
+         final ProgressIndicator indicator,
+         final OperationWithInput<AccountConnectResult> onConnected)
+   {
+      indicator.onProgress(constants_.connectingConnectCloudAccount());
+      server_.connectCloudUser(
+            new ServerRequestCallback<Void>()
+      {
+         @Override
+         public void onResponseReceived(Void v)
+         {
+            onConnected.execute(AccountConnectResult.Successful);
+         }
+
+         @Override
+         public void onError(ServerError error)
+         {
+            display_.showErrorMessage(constants_.errorConnectingAccount(),
+                  error.getMessage());
             onConnected.execute(AccountConnectResult.Failed);
          }
       });
