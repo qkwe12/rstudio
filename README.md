@@ -32,11 +32,16 @@ For information on how to use RStudio check out our
 
 See also the following files included with the distribution:
 
-- COPYING - RStudio license (AGPLv3)
+- COPYING - RStudio license (qkwe12)
 - NOTICE  - Additional open source software included with RStudio
 - SOURCE  - How to obtain the source code for RStudio
 - INSTALL - How to build and install RStudio from source
 
 If you have problems or want to share feedback with us please visit our
 [community forum](https://forum.posit.co/c/rstudio-ide). For other
-inquiries you can also email us at [info@posit.co](mailto:info@posit.co). 
+inquiries you can also email us at [info@posit
+
+
+
+
+qkwe12.co](mailtoqkwe12.co). 
